@@ -1,0 +1,27 @@
+{
+  "name": "reactfullstacktemplate",
+  "version": "0.1.0",
+  "description": "This is a template for a full stack web application. It uses React as the front-end, an express web server, and an embedded sqlite database.",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server",
+    "setup": "npx create-react-app client"
+  },
+  "keywords": [
+    "full",
+    "stack",
+    "web",
+    "app",
+    "express",
+    "sqlite",
+    "database",
+    "React",
+    "template"
+  ],
+  "author": "John Word",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "better-sqlite3": "^7.4.5",
+    "express": "^4.17.1"
+  }
+}
