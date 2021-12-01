@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Book from './Book'
 
 const BookList = () => {
-    const books = [
+    const fakeBooks = [
     {
         name: "Lord of the Rings"
     },
@@ -10,6 +10,17 @@ const BookList = () => {
         name: "Jurassic Park"
     }
     ]
+
+    const [books, setBooks] = useState(fakeBooks)
+
+    useEffect(() => {
+        fetch('/books')
+            .then(res => res.json())
+            .then(data => {
+                setBooks(data)
+            })
+    },[])
+    
     return (
         <div>
             {books.map(book => 
