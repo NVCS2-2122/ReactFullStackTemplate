@@ -4,10 +4,14 @@ import Book from './Book'
 const BookList = () => {
     const fakeBooks = [
     {
-        name: "Lord of the Rings"
+        id: 1,
+        name: "Lord of the Rings",
+        available: true
     },
     {
-        name: "Jurassic Park"
+        id: 2,
+        name: "Jurassic Park",
+        available: false
     }
     ]
 
@@ -25,7 +29,10 @@ const BookList = () => {
         <div>
             {books.map(book => 
                 <Book 
+                    key={book.id}
+                    id={book.id}
                     name={book.name}
+                    available={book.available}
                 />
             )}
         </div>
