@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Book from './Book'
+import Error from './Error'
 
 const BookList = () => {
     const fakeBooks = [
@@ -16,12 +17,9 @@ const BookList = () => {
     ]
 
     const [books, setBooks] = useState(fakeBooks)
+    const [hasError, setError] = useState(false)
 
     function handleCheckout(bookId) {
-        const book = books.find(b => b.id == bookId)
-        book.available = false
-        setBooks([...books])
-
         const payload = {
             method: "POST",
             headers: {
@@ -31,7 +29,16 @@ const BookList = () => {
         }
         fetch("/checkout",payload)
             .then(res => res.json())
-            .then(res => console.info(res))
+            .then(({didCheckOut}) => {
+                if (didCheckOut) {
+                    const book = books.find(b => b.id == bookId)
+                    book.available = false
+                    setBooks([...books])
+                }
+                else {
+                    setError(true)
+                }
+            })
     }
 
     useEffect(() => {
@@ -44,6 +51,7 @@ const BookList = () => {
     
     return (
         <div>
+            {hasError ? <Error /> : ""}
             {books.map(book => 
                 <Book 
                     key={book.id}
