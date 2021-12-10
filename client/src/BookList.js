@@ -17,6 +17,23 @@ const BookList = () => {
 
     const [books, setBooks] = useState(fakeBooks)
 
+    function handleCheckout(bookId) {
+        const book = books.find(b => b.id == bookId)
+        book.available = false
+        setBooks([...books])
+
+        const payload = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({bookId})
+        }
+        fetch("/checkout",payload)
+            .then(res => res.json())
+            .then(res => console.info(res))
+    }
+
     useEffect(() => {
         fetch('/books')
             .then(res => res.json())
@@ -33,6 +50,7 @@ const BookList = () => {
                     id={book.id}
                     name={book.name}
                     available={book.available}
+                    handleCheckout={handleCheckout}
                 />
             )}
         </div>
